@@ -1,0 +1,91 @@
+﻿@model SiemensAssignment.Models.Gold
+
+@{
+    ViewBag.Title = "Estimation";
+}
+
+<h2>Gold Price Estimation</h2>
+
+
+@using (Html.BeginForm("Estimation", "Estimation", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h3>Welcome @ViewData["UserType"]</h3>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.Label("Gold Price (per gram)", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Weight (grams)", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Weight, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Weight, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Total Price", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { @id = "totalPrice", @class = "form-control", @readonly = "readonly", @Value = Model != null ? Model.TotalPrice : null } })
+        </div>
+    </div>
+
+    @if (ViewData["DisplayDiscount"].ToString() == "Yes")
+    {
+        <div class="form-group">
+            @Html.Label("Discount %", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly", @Value = Session["discount"] } })
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Calculate" id="CalculatePrice" class="btn btn-default" style="background-color:lightsteelblue" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Print To Screen" id="PrintToScreen" class="btn btn-default" style="background-color:lightsteelblue" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Print To File" id="PrintToFile" class="btn btn-default" style="background-color:lightsteelblue"
+                   onclick="window.location='@Url.Action("PrintToFile", new { totalPrice = Model != null ? Model.TotalPrice : null })'" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Print To Paper" id="PrintToPaper" class="btn btn-default" style="background-color:lightsteelblue"
+                   onclick="window.location='@Url.Action("PrintToPaper")'" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="Back" id="Back" class="btn btn-default" style="background-color:lightsteelblue"
+                   onclick="window.location='@Url.Action("Login", "Login")'" />
+        </div>
+    </div>
+</div>
+}
+
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

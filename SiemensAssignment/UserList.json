@@ -1,0 +1,25 @@
+{
+  "UserData": [
+    {
+      "Id": 101,
+      "Name": "Kanishka",
+      "Type": "Normal",
+      "UserName": "kanishka",
+      "Password": "abc@123"
+    },
+    {
+      "Id": 102,
+      "Name": "Anand",
+      "Type": "Privileged",
+      "UserName": "anand",
+      "Password": "xyz@123"
+    },
+    {
+      "Id": 103,
+      "Name": "Divya Jyoti",
+      "Type": "Privileged",
+      "UserName": "djyoti",
+      "Password": "jyoti@123"
+    }
+  ]
+}
